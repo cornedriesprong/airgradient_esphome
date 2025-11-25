@@ -1,7 +1,6 @@
 ---
 # AirGradient DIY Basic
 # https://www.airgradient.com/open-airgradient/instructions/overview/
-
 substitutions:
   name: "ag-basic"
   friendly_name: "AG Basic"
@@ -14,8 +13,6 @@ ota:  # Add password as desired
   platform: esphome
   # password:
 
-wifi:
-
 dashboard_import:
   package_import_url: github://MallocArray/airgradient_esphome/airgradient-basic.yaml
   import_full_config: false
@@ -25,9 +22,19 @@ packages:
   captive_portal: github://MallocArray/airgradient_esphome/packages/captive_portal.yaml
   pm_2.5: github://MallocArray/airgradient_esphome/packages/sensor_pms5003.yaml
   co2: github://MallocArray/airgradient_esphome/packages/sensor_s8.yaml
-  # temp_humidity: github://MallocArray/airgradient_esphome/packages/sensor_sht40.yaml
   temp_humidity: github://MallocArray/airgradient_esphome/packages/sensor_sht30.yaml
   display: github://MallocArray/airgradient_esphome/packages/display_ssd1306.yaml
   airgradient_api: github://MallocArray/airgradient_esphome/packages/airgradient_api_d1_mini_no_sgp41.yaml
   wifi: github://MallocArray/airgradient_esphome/packages/sensor_wifi.yaml
   uptime: github://MallocArray/airgradient_esphome/packages/sensor_uptime.yaml
+
+# Override WiFi settings from packages
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  min_auth_mode: WPA2
+  
+  # Add fallback hotspot
+  ap:
+    ssid: "AG-Basic-Fallback"
+    password: "12345678"
